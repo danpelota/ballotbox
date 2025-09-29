@@ -18,9 +18,10 @@ Orchestration and analytics for voter data using Airflow 3.0 and dbt
 2. Access the Airflow UI at http://localhost:8080
 
 3. **Authentication**: Airflow 3.0 runs in standalone mode with auto-generated credentials. The username and password will be printed to STDOUT when the container starts. Look for output like:
-   ```
+
+```
 Simple auth manager | Password for user 'admin': {{ password }}
-   ```
+```
 
 ## Components
 
