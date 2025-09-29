@@ -1,0 +1,7 @@
+sources:
+  - name: voters
+    tables:
+      - name: voters
+        config:
+          external_location: "data/voters.csv.gz"
+
