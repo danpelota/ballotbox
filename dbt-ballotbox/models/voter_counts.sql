@@ -1,1 +1,1 @@
-select count(*) from {{ ref('stg_voters') }}
+select count(*) from {{ ref("stg_voters") }}
