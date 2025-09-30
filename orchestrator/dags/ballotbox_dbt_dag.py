@@ -25,14 +25,14 @@ dag = DAG(
 # dbt build task for first voter file
 dbt_build_voters = BashOperator(
     task_id='dbt_build_voters',
-    bash_command='cd /opt/dbt-ballotbox && dbt build --vars \'{"voters_file_path": "data/voters.csv.gz"}\'',
+    bash_command='cd /opt/dbt-ballotbox && dbt deps && dbt build --vars \'{"voters_file_path": "data/voters.csv.gz"}\'',
     dag=dag,
 )
 
 # dbt build task for updated voter file
 dbt_build_voters_updated = BashOperator(
     task_id='dbt_build_voters_updated',
-    bash_command='cd /opt/dbt-ballotbox && dbt build --vars \'{"voters_file_path": "data/voters_updated.csv.gz"}\'',
+    bash_command='cd /opt/dbt-ballotbox && dbt deps && dbt build --vars \'{"voters_file_path": "data/voters_updated.csv.gz"}\'',
     dag=dag,
 )
 
