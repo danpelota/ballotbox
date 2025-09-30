@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: get_state_codes
+    description: Returns list of valid US state abbreviations for data validation
+
+  - name: is_valid_email
+    description: Does a rudimentary validation of email format using regex validation
+    arguments:
+      - name: column_name
+        type: column
+        description: The name of the column containing email addresses to validate
+
+  - name: get_expected_genders
+    description: Returns list of expected gender values for data validation (M, F, O)
