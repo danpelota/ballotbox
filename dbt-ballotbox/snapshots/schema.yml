@@ -1,0 +1,9 @@
+snapshots:
+  - name: snap_int_voters
+    description: |
+      Snapshot of voter records with SCD Type 2 tracking.
+
+      Note: Typically snapshots should target raw source data, not transformed models.
+      Snapshotting transformed data means changes in business logic will create new CDC rows.
+      We snapshot int_voters here specifically to ensure a unique primary key for the check constraint,
+      since the raw source contains duplicates.

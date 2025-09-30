@@ -43,10 +43,10 @@ The configuration mounts local directories for live development:
 [X] - Airflow standalone setup
 [X] - Mount dbt project directly inside airflow container
 [X] - Build staging models and tests
-[ ] - Build intermediate models and tests
-[ ] - Add snapshot on source
-[ ] - Build dbt docs in GHA on merge
+[x] - Build intermediate models and tests
+[x] - Add snapshot on source
 [ ] - Build marts models and tests
+[ ] - Build dbt docs in GHA on merge
 [ ] - Containerize dbt project, call from Airflow with DockerOperator
 [ ] - Add evidence.dev dashboard
 [ ] - Serve evidence static site from reports directory

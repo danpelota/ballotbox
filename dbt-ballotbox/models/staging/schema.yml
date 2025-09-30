@@ -1,5 +1,9 @@
 models:
   - name: stg_voters
+    description: >
+      Applies type coercion and data validation to raw voter records, filtering
+      invalid values to ensure clean data for downstream models. This staging
+      model maintains a 1:1 relationship with the raw source.
 
     config:
       # Enforce expected column types and warn of breaking changes when
