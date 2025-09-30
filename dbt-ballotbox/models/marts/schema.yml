@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: mrt_voter_counts
+    description: Voter counts aggregated by state, age group, and party
+    columns:
+      - name: state
+        description: Two-letter state code
+      - name: age_group
+        description: Age bracket (<29, 30-49, 50-64, 65+)
+      - name: party
+        description: Political party affiliation
+      - name: voter_count
+        description: Number of registered voters
+
+  - name: mrt_voter_turnout
+    description: Voter turnout rates aggregated by state, age group, and party
+    columns:
+      - name: state
+        description: Two-letter state code
+      - name: age_group
+        description: Age bracket (<29, 30-49, 50-64, 65+)
+      - name: party
+        description: Political party affiliation
+      - name: total_voters
+        description: Total number of registered voters
+      - name: voted_count
+        description: Number of voters who participated in the 2024 general election
+      - name: turnout_pct
+        description: Percentage of voters who participated in the 2024 general election
+
+  - name: mrt_party_registration_changes
+    description: Party registration changes over time using voter file snapshots
+    columns:
+      - name: state
+        description: Two-letter state code
+      - name: party
+        description: Political party affiliation
+      - name: updated_at
+        description: Date when the registration record became valid (proxy for when the change occurred)
+      - name: registration_count
+        description: Number of registration records created on this date

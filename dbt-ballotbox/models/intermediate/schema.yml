@@ -8,10 +8,14 @@ unit_tests:
           - {id: "V001", first_name: "John", last_name: "Doe", age: 35, gender: "M", state: "CA", party: "Democrat", email: "john@example.com", registered_date: "2020-01-15", last_voted_date: "2024-11-05"}
     expect:
       rows:
-        - {id: "V001", first_name: "John", last_name: "Doe", age: 35, gender: "M", state: "CA", party: "Democrat", email: "john@example.com", registered_date: "2020-01-15", last_voted_date: "2024-11-05", non_null_cols: 3, age_group: "30-49", voted_gen24: true, is_active: true}
+        - {id: "V001", first_name: "John", last_name: "Doe", age: 35, gender: "M", state: "CA", party: "Democrat", email: "john@example.com", registered_date: "2020-01-15", last_voted_date: "2024-11-05", age_group: "30-49", voted_gen24: true, is_active: true}
 
 models:
   - name: int_voters
+    description: >
+      Intermediate model that deduplicates voter records by prioritizing rows
+      with most populated fields, and adds derived fields for age groups and
+      voting activity flags.
 
     columns:
       - name: id

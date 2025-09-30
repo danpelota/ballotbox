@@ -3,5 +3,5 @@ sources:
     tables:
       - name: voters
         config:
-          external_location: "data/voters.csv.gz"
+          external_location: "{{ var('voters_file_path', 'data/voters.csv.gz') }}"
 
