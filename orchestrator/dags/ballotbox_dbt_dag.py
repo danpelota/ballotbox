@@ -22,11 +22,26 @@ dag = DAG(
     tags=['demo', 'dbt', 'ballotbox'],
 )
 
-# dbt build task - runs all models, tests, and snapshots
-dbt_build = BashOperator(
-    task_id='dbt_build',
-    bash_command='cd /opt/dbt-ballotbox && dbt build',
+# dbt build task for first voter file
+dbt_build_voters = BashOperator(
+    task_id='dbt_build_voters',
+    bash_command='cd /opt/dbt-ballotbox && dbt build --vars \'{"voters_file_path": "data/voters.csv.gz"}\'',
     dag=dag,
 )
 
-dbt_build
+# dbt build task for updated voter file
+dbt_build_voters_updated = BashOperator(
+    task_id='dbt_build_voters_updated',
+    bash_command='cd /opt/dbt-ballotbox && dbt build --vars \'{"voters_file_path": "data/voters_updated.csv.gz"}\'',
+    dag=dag,
+)
+
+# Evidence.dev report build task
+evidence_build = BashOperator(
+    task_id='evidence_build',
+    bash_command='cd /opt/dbt-ballotbox && npm --prefix ./reports install && npm --prefix reports run build',
+    dag=dag,
+)
+
+# Run builds sequentially
+dbt_build_voters >> dbt_build_voters_updated >> evidence_build
