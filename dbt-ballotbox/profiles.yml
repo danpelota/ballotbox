@@ -3,5 +3,5 @@ ballotbox:
   outputs:
     dev:
       type: duckdb
-      path: 'dev.duckdb'
+      path: 'reports/sources/voter_analytics/dev.duckdb'
       threads: 1
