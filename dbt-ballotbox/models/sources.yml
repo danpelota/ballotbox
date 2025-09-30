@@ -1,7 +1,0 @@
-sources:
-  - name: voters
-    tables:
-      - name: voters
-        config:
-          external_location: "{{ var('voters_file_path', 'data/voters.csv.gz') }}"
-

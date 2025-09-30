@@ -1,1 +1,0 @@
-select * from mrt_party_registration_changes

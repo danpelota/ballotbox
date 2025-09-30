@@ -1,0 +1,1 @@
+select count(*) from "dev"."main"."stg_voters"
