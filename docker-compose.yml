@@ -12,3 +12,10 @@ services:
     environment:
       # Enable auto-refresh of DAGs in development
       - AIRFLOW__WEBSERVER__RELOAD_ON_PLUGIN_CHANGE=True
+
+  reports:
+    image: nginx:alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./dbt-ballotbox/reports/build:/usr/share/nginx/html:ro
