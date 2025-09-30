@@ -1,8 +1,11 @@
 FROM apache/airflow:slim-3.1.0-python3.13
 
-# Install dbt for data transformation
+# Install dbt for data transformation and Node.js for Evidence.dev
 USER root
-RUN apt-get update && apt-get install -y git && apt-get clean
+RUN apt-get update && apt-get install -y git curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean
 USER airflow
 RUN pip install dbt-core dbt-duckdb
 
