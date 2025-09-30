@@ -1,0 +1,38 @@
+unit_tests:
+  - name: test_deduplication_keeps_most_populated_row
+    model: int_voters
+    given:
+      - input: ref('stg_voters')
+        rows:
+          - {id: "V001", first_name: "John", last_name: "Doe", age: 35, gender: "M", state: "CA", party: "Democrat", email: null, registered_date: null, last_voted_date: null}
+          - {id: "V001", first_name: "John", last_name: "Doe", age: 35, gender: "M", state: "CA", party: "Democrat", email: "john@example.com", registered_date: "2020-01-15", last_voted_date: "2024-11-05"}
+    expect:
+      rows:
+        - {id: "V001", first_name: "John", last_name: "Doe", age: 35, gender: "M", state: "CA", party: "Democrat", email: "john@example.com", registered_date: "2020-01-15", last_voted_date: "2024-11-05", non_null_cols: 3, age_group: "30-49", voted_gen24: true, is_active: true}
+
+models:
+  - name: int_voters
+
+    columns:
+      - name: id
+        description: Unique voter registration identifier
+        data_type: text
+        tests:
+          - not_null
+          - unique
+
+      - name: age_group
+        description: Age bracket (<29, 30-49, 50-64, 65+)
+        data_type: text
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['<29', '30-49', '50-64', '65+']
+
+      - name: voted_gen24
+        description: Whether voter cast a ballot in the 2024-11-05 general election
+        data_type: boolean
+
+      - name: is_active
+        description: Whether voter has cast at least one ballot after the 2020-11-03 general election
+        data_type: boolean

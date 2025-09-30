@@ -42,7 +42,8 @@ The configuration mounts local directories for live development:
 [X] - Basic dbt project setup, reading CSV as duckdb pass-through source
 [X] - Airflow standalone setup
 [X] - Mount dbt project directly inside airflow container
-[X] - Build intermediate models and tests
+[X] - Build staging models and tests
+[ ] - Build intermediate models and tests
 [ ] - Add snapshot on source
 [ ] - Build dbt docs in GHA on merge
 [ ] - Build marts models and tests
