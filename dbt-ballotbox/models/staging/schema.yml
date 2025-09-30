@@ -1,0 +1,80 @@
+models:
+  - name: stg_voters
+
+    config:
+      # Enforce expected column types and warn of breaking changes when
+      # referencing a deployed manifest.json file
+      contract:
+        enforced: true
+
+    columns:
+      - name: id
+        description: Unique voter registration identifier
+        data_type: text
+        tests:
+          - not_null
+          - unique:
+              # Accept that we may have a small number of malformed rows leading
+              # to duplicates, but if we have many there's probably something
+              # more nefarious going on
+              config:
+                error_if: ">5"
+
+      - name: first_name
+        description: Voter's legal first name
+        data_type: text
+        tests:
+          - not_null
+
+      - name: last_name
+        description: Voter's legal last name
+        data_type: text
+        tests:
+          - not_null
+
+      - name: age
+        description: Voter's current age in years
+        data_type: integer
+        tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 18
+                max_value: 110
+
+      - name: gender
+        description: Voter's self-reported gender (M/F/O)
+        data_type: text
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['M', 'F', 'O']
+
+      - name: state
+        description: US state where voter is registered
+        data_type: text
+        tests:
+          - accepted_values:
+              arguments:
+                values: "{{ get_state_codes() }}"
+
+      - name: party
+        description: Voter's registered political party affiliation
+        data_type: text
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Democrat', 'Independent', 'Republican']
+
+      - name: email
+        description: Voter's contact email address
+        data_type: text
+        tests:
+          - valid_email
+
+      - name: registered_date
+        description: Date voter initially registered to vote
+        data_type: date
+
+      - name: last_voted_date
+        description: Most recent date voter cast a ballot
+        data_type: date

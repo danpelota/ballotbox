@@ -35,3 +35,21 @@ The configuration mounts local directories for live development:
 - DAGs directory is mounted for immediate Airflow updates
 - dbt project is mounted for model development
 - Data directory provides access to source CSV files 
+
+
+## TODO
+
+[X] - Basic dbt project setup, reading CSV as duckdb pass-through source
+[X] - Airflow standalone setup
+[X] - Mount dbt project directly inside airflow container
+[X] - Build intermediate models and tests
+[ ] - Add snapshot on source
+[ ] - Build dbt docs in GHA on merge
+[ ] - Build marts models and tests
+[ ] - Containerize dbt project, call from Airflow with DockerOperator
+[ ] - Add evidence.dev dashboard
+[ ] - Serve evidence static site from reports directory
+[ ] - Github CD workflow to deploy evidence site to pages
+[ ] - Airflow task to download remote voter file
+[ ] - Add duckdb ui in container? Might need a proxy for multiple connections?
+[ ] - dbt code formatting with sqlfmt
