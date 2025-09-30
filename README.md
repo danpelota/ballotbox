@@ -25,17 +25,36 @@ Simple auth manager | Password for user 'admin': {{ password }}
 
 ## Components
 
-- **Airflow 3.0**: Orchestrates the data pipeline in standalone mode
+- **Airflow**: Orchestrates dbt invocations in standalone mode
 - **dbt**: Transforms raw voter data into analytics-ready models
-- **DuckDB**: Local database engine for fast analytics
+- **DuckDB**: Local database engine
+
+## dbt Project Structure
+
+- `staging/`: Staging models for basic validation and cleanup, maintaing a 1:1
+relationship with sources
+- `intermediate/`: Deduplicated voters with derived fields (age groups,
+demographic categories)
+- `snapshots/`: Type-2 slowly changing dimension to track incremental changes in voter records
+- `marts/`: Analytics-ready models
 
 ## Development
 
 The configuration mounts local directories for live development:
 - DAGs directory is mounted for immediate Airflow updates
 - dbt project is mounted for model development
-- Data directory provides access to source CSV files 
+- Data directory provides access to source CSV files
 
+### Testing Snapshot Changes
+
+To simulate voter data changes and test the snapshot functionality, use the
+`voters_file_path` variable to point to a simulated in-place update of the voter
+file
+
+```bash
+dbt build --vars '{"voters_file_path": "data/voters.csv.gz"}'
+dbt build --vars '{"voters_file_path": "data/voters_updated.csv.gz"}'
+```
 
 ## TODO
 
@@ -45,10 +64,10 @@ The configuration mounts local directories for live development:
 [X] - Build staging models and tests
 [x] - Build intermediate models and tests
 [x] - Add snapshot on source
-[ ] - Build marts models and tests
+[x] - Build marts models and tests
+[ ] - Add evidence.dev dashboard
 [ ] - Build dbt docs in GHA on merge
 [ ] - Containerize dbt project, call from Airflow with DockerOperator
-[ ] - Add evidence.dev dashboard
 [ ] - Serve evidence static site from reports directory
 [ ] - Github CD workflow to deploy evidence site to pages
 [ ] - Airflow task to download remote voter file

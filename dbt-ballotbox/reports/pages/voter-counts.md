@@ -4,6 +4,16 @@ title: Voter Counts
 
 # Voter Registration Counts
 
+```sql states
+select distinct state
+from voter_analytics.mrt_voter_counts
+order by state
+```
+
+<Dropdown name=state_filter data={states} value=state defaultValue="">
+    <DropdownOption valueLabel="All States" value=""/>
+</Dropdown>
+
 ```sql voter_counts
 select
     state,
@@ -11,6 +21,7 @@ select
     party,
     voter_count
 from voter_analytics.mrt_voter_counts
+where coalesce('${inputs.state_filter.value}', '') = '' or state = '${inputs.state_filter.value}'
 order by state, age_group, party
 ```
 
@@ -19,16 +30,21 @@ order by state, age_group, party
 ```sql state_totals
 select
     state,
+    party,
     sum(voter_count) as total_voters
 from voter_analytics.mrt_voter_counts
-group by state
-order by total_voters desc
+where coalesce('${inputs.state_filter.value}', '') = '' or state = '${inputs.state_filter.value}'
+group by state, party
+order by state, party
 ```
 
 <BarChart
     data={state_totals}
     x=state
     y=total_voters
+    series=party
+    sort=true
+    sortOrder=desc
     title="Registered Voters by State"
 />
 
@@ -39,6 +55,7 @@ select
     party,
     sum(voter_count) as total_voters
 from voter_analytics.mrt_voter_counts
+where coalesce('${inputs.state_filter.value}', '') = '' or state = '${inputs.state_filter.value}'
 group by party
 order by total_voters desc
 ```
@@ -57,6 +74,7 @@ select
     age_group,
     sum(voter_count) as total_voters
 from voter_analytics.mrt_voter_counts
+where coalesce('${inputs.state_filter.value}', '') = '' or state = '${inputs.state_filter.value}'
 group by age_group
 order by age_group
 ```

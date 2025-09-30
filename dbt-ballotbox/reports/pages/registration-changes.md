@@ -1,8 +1,8 @@
 ---
-title: Registration Changes
+title: Party Switchers
 ---
 
-# Party Registration Changes Over Time
+# Recent Party Switchers
 
 ```sql states_list
 select distinct state
@@ -19,27 +19,34 @@ order by state
     <DropdownOption valueLabel="All States" value="%" />
 </Dropdown>
 
-```sql registration_data
+```sql party_switchers
 select
-    updated_at,
-    party,
-    sum(registration_count) as registration_count
+    id,
+    first_name,
+    last_name,
+    state,
+    old_party,
+    new_party,
+    switched_at
 from voter_analytics.mrt_party_registration_changes
 where state like '${inputs.state_filter.value}'
-group by updated_at, party
-order by updated_at, party
+order by switched_at desc
 ```
 
-## Registration Trends
+```sql switch_summary
+select
+    old_party || ' → ' || new_party as party_change,
+    count(*) as num_voters
+from voter_analytics.mrt_party_registration_changes
+where state like '${inputs.state_filter.value}'
+group by old_party, new_party
+order by num_voters desc
+```
 
-<LineChart
-    data={registration_data}
-    x=updated_at
-    y=registration_count
-    series=party
-    title="Party Registration Changes - {inputs.state_filter.label}"
-/>
+## Switch Summary
 
-## Detailed Data
+<DataTable data={switch_summary} />
 
-<DataTable data={registration_data} />
+## All Party Switchers
+
+<DataTable data={party_switchers} />

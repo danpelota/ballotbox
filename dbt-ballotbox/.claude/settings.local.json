@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/danball/projects/ballotbox/.github/**)",
+      "Bash(cat:*)",
+      "Bash(npm --prefix ./reports run sources)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
