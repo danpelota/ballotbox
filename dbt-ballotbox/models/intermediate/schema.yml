@@ -26,12 +26,12 @@ models:
           - unique
 
       - name: age_group
-        description: Age bracket (<29, 30-49, 50-64, 65+)
+        description: Age bucket
         data_type: text
         tests:
           - accepted_values:
               arguments:
-                values: ['<29', '30-49', '50-64', '65+']
+                values: ['29 and under', '30-49', '50-64', '65 +']
 
       - name: voted_gen24
         description: Whether voter cast a ballot in the 2024-11-05 general election

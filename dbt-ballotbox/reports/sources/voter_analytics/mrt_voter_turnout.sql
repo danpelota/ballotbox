@@ -1,0 +1,1 @@
+select * from mrt_voter_turnout

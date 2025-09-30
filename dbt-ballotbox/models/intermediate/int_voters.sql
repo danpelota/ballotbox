@@ -20,13 +20,13 @@ select
 
     case
         when age < 30
-        then '<29'
+        then '29 and under'
         when age between 30 and 49
         then '30-49'
         when age between 50 and 64
         then '50-64'
         when age >= 65
-        then '65+'
+        then '65 +'
     end as age_group,
 
     coalesce(last_voted_date = '2024-11-05'::date, false) as voted_gen24,

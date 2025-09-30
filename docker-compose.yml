@@ -5,15 +5,10 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      # Mount DAGs directory for live development
+      # Hotload DAGs and dbt directories for live development
       - ./orchestrator/dags:/opt/airflow/dags
-      # Mount dbt project for live development
       - ./dbt-ballotbox:/opt/dbt-ballotbox
-      # Mount data directory for access to CSV files
       - ./data:/opt/data
     environment:
-      # Additional environment variables for development
-      - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
-      - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=30
       # Enable auto-refresh of DAGs in development
       - AIRFLOW__WEBSERVER__RELOAD_ON_PLUGIN_CHANGE=True
