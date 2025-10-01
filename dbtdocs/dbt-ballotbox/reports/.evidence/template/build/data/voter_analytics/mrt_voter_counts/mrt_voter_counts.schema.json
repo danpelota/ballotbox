@@ -1,0 +1,1 @@
+[{"name":"state","evidenceType":"string","typeFidelity":"precise"},{"name":"age_group","evidenceType":"string","typeFidelity":"precise"},{"name":"party","evidenceType":"string","typeFidelity":"precise"},{"name":"voter_count","evidenceType":"number","typeFidelity":"precise"}]

@@ -1,0 +1,1 @@
+const n={},o=new Set,E=e=>{s()?e():o.add(e)},s=()=>{if(typeof process<"u")return!!(process.env.EVIDENCE_DEBUG||process.env.VITE_PUBLIC_EVIDENCE_DEBUG||process.env.NODE_ENV==="test"&&!process.env.EVIDENCE_DISABLE_TEST_DEBUG);if(typeof n<"u")return!1};export{s as i,E as o};
