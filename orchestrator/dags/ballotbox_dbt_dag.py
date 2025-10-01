@@ -39,7 +39,7 @@ dbt_build_voters_updated = BashOperator(
 # Evidence.dev report build task
 evidence_build = BashOperator(
     task_id='evidence_build',
-    bash_command='cd /opt/dbt-ballotbox && npm --prefix ./reports install && npm --prefix reports run build',
+    bash_command='cd /opt/dbt-ballotbox && npm --prefix ./reports install && npm --prefix reports run sources && npm --prefix reports run build',
     dag=dag,
 )
 
